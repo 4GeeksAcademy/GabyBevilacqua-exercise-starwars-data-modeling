@@ -29,8 +29,8 @@ class Planets(Base):
     population = Column(String(50), nullable=False)
     climate = Column(String(50), nullable=False)
     
-    characters = relationship("Character", back_populates="planet")
-    favorites = relationship("Favorite", back_populates="planet")
+    characters = relationship("Character", back_populates="planets")
+    favorites = relationship("Favorite", back_populates="planets")
     
 class Character(Base):
     __tablename__ = 'character'
@@ -40,7 +40,7 @@ class Character(Base):
     homeworld = Column(Integer, ForeignKey(Planets.planetID))
     
     favorites = relationship("Favorite", back_populates="character")
-    planet = relationship("Planet", back_populates="character")
+    planets = relationship("Planets", back_populates="character")
     
 class Vehicles(Base):
     __tablename__ = 'vehicle'
@@ -62,7 +62,7 @@ class Favorites(Base):
     
     user = relationship("User", back_populates="favorites")
     character = relationship("Character", back_populates="favorites")
-    planet = relationship("Planet", back_populates="favorites")
+    planets = relationship("Planets", back_populates="favorites")
     vehicle = relationship("Vehicles", back_populates="favorites")
 
     def to_dict(self):
